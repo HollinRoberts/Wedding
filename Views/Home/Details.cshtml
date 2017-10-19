@@ -1,0 +1,18 @@
+ @{
+     <a href="/logout">Logout</a>
+     <a href="/home">Dashboard</a>
+        <h1>@ViewBag.Details.One and @ViewBag.Details.Two's Wedding</h1>
+        <h2>Date: @ViewBag.Details.Date</h2>
+
+        <ul>Guests:
+            @if(@ViewBag.Details.guestlist.Count>0)
+             {
+                foreach(var list in @ViewBag.Details.guestlist){
+                    <li> @list.User.first  @list.User.last</li>
+                }
+            }
+        </ul>
+
+        
+   
+    }

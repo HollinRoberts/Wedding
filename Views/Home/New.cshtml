@@ -1,0 +1,19 @@
+<h1>Plan Your Wedding</h1><a href="/logout">Logout</a><a href="/home">Dashboard</a>
+@{      
+        foreach(var error in ViewBag.errors)
+        {
+            
+            foreach(var each1 in error.Errors){
+                <p>@each1.ErrorMessage</p>
+        }
+        }
+        
+}
+<Form action="Create" name="create" method="post">
+    Bride:<input type="text" name="one"><br>
+    Groom:<input type="text" name="two"><br>
+    Date:<input type="date" name="date"><br>
+    Address:<input type="text" name="address"><br>
+   
+    <input type="submit" value="Create">
+</Form>

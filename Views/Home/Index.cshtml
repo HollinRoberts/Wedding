@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<h1>Welcome to the Wedding Planner</h1>
+<a href="/logout">Logout</a>
+
+<table class="table">
+    <tr>
+        <th>Wedding</th>
+        <th>Date</th>
+        <th>Guest</th>
+        <th>Action</th>
+    </tr>
+     @{
+        foreach(var wedding in @ViewBag.AllWeddings){
+
+        
+    <tr>
+        <td><a href="/details/@wedding.weddingplanid">@wedding.One & @wedding.Two</a></td>
+        <td>@wedding.Date</td>
+        <td>@wedding.guestlist.Count</td>
+        @if(@wedding.userid==@ViewBag.User)
+            {
+                <td><a href="/delete/@wedding.weddingplanid">Delete</a></td>;
+            }else if(@wedding.guestlist.Count>0)
+            {
+                var found = false;
+                var glid = 0;
+                for(var i=0;i<@wedding.guestlist.Count;i++)
+                {
+                    if(@wedding.guestlist[i].User.userid==@ViewBag.User)
+                    {
+                        found = true;
+                        glid=@wedding.guestlist[i].guestlistid;
+                    }        
+                }
+                if(found==true){
+                     <td><a href="/UNRSVP/@glid">UNRSVP</a></td>
+                }else{
+                    <td><a href="/RSVP/@wedding.weddingplanid">RSVP</a></td>
+                }
+            }
+            
+
+         <!-- @if(ViewBag.Show==1){<td><a href="/delete/@wedding.weddingplanid">Delete</a></td>}
+        @if(ViewBag.Show==2){<td><a href="/UNRSVP/@ViewBag.listid">UNRSVP</a></td>}
+        @if(ViewBag.Show==3){<td><a href="/RSVP/@wedding.weddingplanid">RSVP</a></td>} -->
+    </tr>
+        }
+    }
+</table>
+<form action="new" method="get">
+<input type="submit" value="New Wedding">
+</form>
